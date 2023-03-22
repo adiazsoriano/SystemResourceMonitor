@@ -3,3 +3,6 @@
 .git/
 obj/
 bin/
+
+#config info
+config/
