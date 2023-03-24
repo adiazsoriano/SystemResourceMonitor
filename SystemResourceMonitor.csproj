@@ -9,12 +9,10 @@
 
   <ItemGroup>
     <None Remove="resources\System_Resource_Monitor_Main_v1.png" />
-    <None Remove="System_Resource_Monitor_Main_v1.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="resources\System_Resource_Monitor_Main_v1.png" />
-    <Resource Include="System_Resource_Monitor_Main_v1.png" />
   </ItemGroup>
 
   <ItemGroup>
