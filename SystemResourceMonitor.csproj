@@ -8,6 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="resources\System_Resource_Monitor_Main_v1.png" />
+    <None Remove="System_Resource_Monitor_Main_v1.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="resources\System_Resource_Monitor_Main_v1.png" />
+    <Resource Include="System_Resource_Monitor_Main_v1.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MySqlConnector" Version="2.3.0-beta.1" />
     <PackageReference Include="ScottPlot.WPF" Version="4.1.61" />
   </ItemGroup>

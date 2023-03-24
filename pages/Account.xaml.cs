@@ -1,7 +1,5 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,16 +11,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using MySqlConnector;
+using System.Windows.Shapes;
 
-namespace SystemResourceMonitor {
+namespace SystemResourceMonitor
+{
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Account.xaml
     /// </summary>
-    public partial class MainWindow : Window {
-
-        public static MySqlConnection? Connection { get; set; }
-        public MainWindow() {
+    public partial class Account : Page
+    {
+        public Account()
+        {
             InitializeComponent();
         }
     }
