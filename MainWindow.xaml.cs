@@ -20,8 +20,6 @@ namespace SystemResourceMonitor {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
-
-        public static MySqlConnection? Connection { get; set; }
         public MainWindow() {
             InitializeComponent();
         }

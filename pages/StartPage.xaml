@@ -9,8 +9,8 @@
       Title="StartPage">
 
     <Grid>
-        <Button x:Name="btnAccount" Content="Login/Signup" HorizontalAlignment="Left" Margin="1150,18,0,0" VerticalAlignment="Top" Width="85" Height="30"/>
-        <WpfPlot x:Name="plExample" HorizontalAlignment="Center" VerticalAlignment="Center" Height="450" Width="800"/>
+        <Button x:Name="btnAccount" Content="Login/Signup" HorizontalAlignment="Left" Margin="1150,18,0,0" VerticalAlignment="Top" Width="85" Height="30" Click="btnAccount_Click"/>
+        <!-- <WpfPlot x:Name="plExample" HorizontalAlignment="Center" VerticalAlignment="Center" Height="450" Width="800"/> -->
 
     </Grid>
 </Page>

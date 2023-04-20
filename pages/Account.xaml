@@ -9,6 +9,18 @@
       Title="Account">
 
     <Grid>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="30,18,0,0" VerticalAlignment="Top" Width="85" Height="30" Click="btnBack_Click" FontSize="18"/>
+        <Grid x:Name="gdLogin" Margin="90,100,660,100" Background="#FFF3F3F3">
+            <Label Content="Login" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" FontSize="24"/>
+            <TextBox x:Name="txtLoginUser" HorizontalAlignment="Center" Margin="0,218,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="510" FontSize="24" ToolTip="Please enter a username."/>
+            <PasswordBox x:Name="txtLoginPass" HorizontalAlignment="Center" Margin="0,291,0,0" VerticalAlignment="Top" Width="510" FontSize="24" ToolTip="Please enter a password."/>
+            <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Center" Margin="0,400,0,0" VerticalAlignment="Top" FontSize="24" Width="510" Click="btnLogin_Click"/>
+            <Label Content="Username" HorizontalAlignment="Left" Margin="10,179,0,0" VerticalAlignment="Top" FontSize="18"/>
+            <Label Content="Password" HorizontalAlignment="Left" Margin="10,252,0,0" VerticalAlignment="Top" FontSize="18"/>
+            <Label x:Name="lblErr" Content="Error" HorizontalAlignment="Left" Margin="10,140,0,0" VerticalAlignment="Top" FontSize="18" Foreground="Red"/>
+        </Grid>
+        <Grid x:Name="gdSignup" Margin="660,100,90,100" Background="#FFF3F3F3">
+            <Label Content="Signin" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" FontSize="24"/>
+        </Grid>
     </Grid>
 </Page>

@@ -35,14 +35,19 @@ namespace SystemResourceMonitor.pages {
                 btnAccount.IsEnabled = false;
             }
 
-            plExample.Plot.AddSignal(DataGen.Sin(51));
-            plExample.Plot.AddSignal(DataGen.Cos(51));
+            //plExample.Plot.AddSignal(DataGen.Sin(51));
+            //plExample.Plot.AddSignal(DataGen.Cos(51));
 
-            plExample.Plot.Title("Example Graph");
-            plExample.Plot.YLabel("Y Axis Data");
-            plExample.Plot.XLabel("X Axis Data");
+            //plExample.Plot.Title("Example Graph");
+            //plExample.Plot.YLabel("Y Axis Data");
+            //plExample.Plot.XLabel("X Axis Data");
 
-            plExample.Refresh();
+            //plExample.Refresh();
+        }
+
+        private void btnAccount_Click(object sender, RoutedEventArgs e) {
+            //var click = e.OriginalSource
+            NavigationService.Navigate(new Uri("/pages/Account.xaml", UriKind.Relative));
         }
     }
 }
