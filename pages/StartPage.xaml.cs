@@ -22,10 +22,6 @@ namespace SystemResourceMonitor.pages {
     public partial class StartPage : Page {
         public StartPage() {
             InitializeComponent();
-            string? auth = FileUtil.GetFileContent(Path.Combine(Path.GetFullPath(@"..\..\..\"), @"config\config.txt"))?[0];
-            DBConnection.Connection = DBConnection.Connect(auth);
-            Debug.WriteLine(DBConnection.Connection == null ? "Connection from DBConnection not reached" :
-                                                              "Connection from DBConnection reached");
             this.Loaded += StartPage_Loaded;
         }
 
@@ -34,19 +30,9 @@ namespace SystemResourceMonitor.pages {
             if(DBConnection.Connection == null) {
                 btnAccount.IsEnabled = false;
             }
-
-            //plExample.Plot.AddSignal(DataGen.Sin(51));
-            //plExample.Plot.AddSignal(DataGen.Cos(51));
-
-            //plExample.Plot.Title("Example Graph");
-            //plExample.Plot.YLabel("Y Axis Data");
-            //plExample.Plot.XLabel("X Axis Data");
-
-            //plExample.Refresh();
         }
 
         private void btnAccount_Click(object sender, RoutedEventArgs e) {
-            //var click = e.OriginalSource
             NavigationService.Navigate(new Uri("/pages/Account.xaml", UriKind.Relative));
         }
     }

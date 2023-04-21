@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:SystemResourceMonitor"
         mc:Ignorable="d"
         Title="System Resource Monitor" Height="720" Width="1280"
-        ResizeMode="NoResize" Icon="/resources/favicon.png">
+        ResizeMode="NoResize" Icon="/resources/favicon.png"
+        WindowStartupLocation="CenterScreen">
     <Grid x:Name="MainGrid">
         <Frame NavigationUIVisibility="Hidden" Source="/pages/StartPage.xaml"></Frame>
     </Grid>

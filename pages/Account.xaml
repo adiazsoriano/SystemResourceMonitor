@@ -5,22 +5,33 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SystemResourceMonitor"
       mc:Ignorable="d" 
-      d:DesignHeight="720" d:DesignWidth="1280"
+      d:DesignHeight="690" d:DesignWidth="1280"
       Title="Account">
 
     <Grid>
-        <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="30,18,0,0" VerticalAlignment="Top" Width="85" Height="30" Click="btnBack_Click" FontSize="18"/>
-        <Grid x:Name="gdLogin" Margin="90,100,660,100" Background="#FFF3F3F3">
+        <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="30,18,0,0" VerticalAlignment="Top" Width="85" Height="30" Click="btnBack_Click"/>
+        <Grid x:Name="gdLogin" Margin="90,80,660,50" Background="#FFF3F3F3">
             <Label Content="Login" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" FontSize="24"/>
             <TextBox x:Name="txtLoginUser" HorizontalAlignment="Center" Margin="0,218,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="510" FontSize="24" ToolTip="Please enter a username."/>
             <PasswordBox x:Name="txtLoginPass" HorizontalAlignment="Center" Margin="0,291,0,0" VerticalAlignment="Top" Width="510" FontSize="24" ToolTip="Please enter a password."/>
-            <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Center" Margin="0,400,0,0" VerticalAlignment="Top" FontSize="24" Width="510" Click="btnLogin_Click"/>
+            <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Center" Margin="0,448,0,0" VerticalAlignment="Top" FontSize="24" Width="510" Click="btnLogin_Click"/>
             <Label Content="Username" HorizontalAlignment="Left" Margin="10,179,0,0" VerticalAlignment="Top" FontSize="18"/>
             <Label Content="Password" HorizontalAlignment="Left" Margin="10,252,0,0" VerticalAlignment="Top" FontSize="18"/>
-            <Label x:Name="lblErr" Content="Error" HorizontalAlignment="Left" Margin="10,140,0,0" VerticalAlignment="Top" FontSize="18" Foreground="Red"/>
+            <Label x:Name="lblErrLogin" Content="Error" HorizontalAlignment="Left" Margin="10,140,0,0" VerticalAlignment="Top" FontSize="18" Foreground="Red"/>
         </Grid>
-        <Grid x:Name="gdSignup" Margin="660,100,90,100" Background="#FFF3F3F3">
-            <Label Content="Signin" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <Grid x:Name="gdSignup" Margin="660,80,90,50" Background="#FFF3F3F3">
+            <Label Content="Sign up" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" FontSize="24"/>
+            <TextBox x:Name="txtSignupUser" HorizontalAlignment="Center" Margin="0,151,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="510" FontSize="24" ToolTip="Please enter a username."/>
+            <TextBox x:Name="txtSignupName" HorizontalAlignment="Center" Margin="0,226,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="510" FontSize="24" ToolTip="Please enter a name."/>
+            <PasswordBox x:Name="txtSignupPass" HorizontalAlignment="Center" VerticalAlignment="Top" Width="510" FontSize="24" ToolTip="Please enter a password." Margin="0,302,0,0" PasswordChanged="txtSignupPass_PasswordChanged"/>
+            <PasswordBox x:Name="txtSignupPassConf" HorizontalAlignment="Center" Margin="0,380,0,0" VerticalAlignment="Top" Width="510" FontSize="24" ToolTip="Please confirm password." PasswordChanged="txtSignupPassConf_PasswordChanged"/>
+            <Label Content="Username" HorizontalAlignment="Left" Margin="10,112,0,0" VerticalAlignment="Top" FontSize="18"/>
+            <Label Content="Name" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top" FontSize="18"/>
+            <Label Content="Password" HorizontalAlignment="Left" Margin="10,263,0,0" VerticalAlignment="Top" FontSize="18"/>
+            <Label Content="Confirm Password" HorizontalAlignment="Left" Margin="10,340,0,0" VerticalAlignment="Top" FontSize="18"/>
+            <Button x:Name="btnSignup" Content="Sign up" HorizontalAlignment="Center" Margin="0,448,0,0" VerticalAlignment="Top" FontSize="24" Width="510" Click="btnSignup_Click"/>
+            <Label x:Name="lblErrConf" Content="Error" HorizontalAlignment="Left" Margin="168,340,0,0" VerticalAlignment="Top" FontSize="18" Foreground="Red"/>
+            <Label x:Name="lblErrSignup" Content="Error" HorizontalAlignment="Left" Margin="220,112,0,0" VerticalAlignment="Top" FontSize="18" Foreground="Red"/>
         </Grid>
     </Grid>
 </Page>

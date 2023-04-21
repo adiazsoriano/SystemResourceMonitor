@@ -22,6 +22,10 @@ namespace SystemResourceMonitor {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
+            string? auth = FileUtil.GetFileContent(Path.Combine(Path.GetFullPath(@"..\..\..\"), @"config\config.txt"))?[0];
+            DBConnection.Connection = DBConnection.Connect(auth);
+            Debug.WriteLine(DBConnection.Connection == null ? "Connection from DBConnection not reached" :
+                                                              "Connection from DBConnection reached");
         }
     }
 }
