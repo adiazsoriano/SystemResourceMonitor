@@ -1,4 +1,4 @@
-﻿<Page x:Class="SystemResourceMonitor.Account"
+﻿<Page x:Class="SystemResourceMonitor.pages.Account"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -31,7 +31,7 @@
             <Label Content="Confirm Password" HorizontalAlignment="Left" Margin="10,340,0,0" VerticalAlignment="Top" FontSize="18"/>
             <Button x:Name="btnSignup" Content="Sign up" HorizontalAlignment="Center" Margin="0,448,0,0" VerticalAlignment="Top" FontSize="24" Width="510" Click="btnSignup_Click"/>
             <Label x:Name="lblErrConf" Content="Error" HorizontalAlignment="Left" Margin="168,340,0,0" VerticalAlignment="Top" FontSize="18" Foreground="Red"/>
-            <Label x:Name="lblErrSignup" Content="Error" HorizontalAlignment="Left" Margin="220,112,0,0" VerticalAlignment="Top" FontSize="18" Foreground="Red"/>
+            <Label x:Name="lblMessSignup" Content="Error" HorizontalAlignment="Left" Margin="220,112,0,0" VerticalAlignment="Top" FontSize="18" Foreground="Red"/>
         </Grid>
     </Grid>
 </Page>

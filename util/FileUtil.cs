@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SystemResourceMonitor {
+namespace SystemResourceMonitor.util {
     static class FileUtil {
 
-        public static List<string>? GetFileContent(string path) { 
+        public static List<string>? GetFileContent(string path) {
             List<string> content = new List<string>();
 
             try {

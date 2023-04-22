@@ -1,19 +1,7 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using ScottPlot;
+using SystemResourceMonitor.util;
 
 namespace SystemResourceMonitor.pages {
     /// <summary>
@@ -22,18 +10,34 @@ namespace SystemResourceMonitor.pages {
     public partial class StartPage : Page {
         public StartPage() {
             InitializeComponent();
+            this.KeepAlive = true;
             this.Loaded += StartPage_Loaded;
         }
 
         private void StartPage_Loaded(object sender, RoutedEventArgs e) {
 
-            if(DBConnection.Connection == null) {
+            if (DBUtil.Connection == null) {
                 btnAccount.IsEnabled = false;
+            }
+            if (UserConfig.UserData != null) {
+                btnAccount.Content = "Account";
+            } else {
+                btnAccount.Content = "Login/Signup";
             }
         }
 
         private void btnAccount_Click(object sender, RoutedEventArgs e) {
-            NavigationService.Navigate(new Uri("/pages/Account.xaml", UriKind.Relative));
+            if (UserConfig.UserData != null) {
+                if (NavigationService.CanGoBack) {
+                    NavigationService.GoBack();
+                }
+            } else {
+                if (NavigationService.CanGoForward) {
+                    NavigationService.GoForward();
+                } else {
+                    NavigationService.Navigate(PageUriIndex.account);
+                }
+            }
         }
     }
 }
