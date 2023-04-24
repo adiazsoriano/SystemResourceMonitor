@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
@@ -56,7 +57,7 @@ namespace SystemResourceMonitor.pages {
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e) {
-            string query = "SELECT UID,Username,Name FROM Users WHERE Username=@user AND Password=@pass;";
+            string query = "SELECT UID, Username, Name FROM Users WHERE Username=@user AND Password=@pass;";
             var (result, _) = DBUtil.ExecuteStatement(query,
                                                      false,
                                                      new("@user", txtLoginUser.Text.ToString()),
@@ -64,7 +65,20 @@ namespace SystemResourceMonitor.pages {
                                                      );
 
             if (result != null && result.HasRows) {
-                //lblErrLogin.Content = "This user exists.";
+                UserConfig.UserData = new UserData();
+
+                string? uid = "";
+                string? username = "";
+                string? name = "";
+                if(result.Read()) {
+                    uid = result["UID"].ToString();
+                    username = result["Username"].ToString();
+                    name = result["Name"].ToString();
+                }
+                result?.Close();
+                UserConfig.UserData.LoadData(uid, username, name);
+                UserConfig.UserLoggedin = true;
+
                 NavigationService.Navigate(PageUriIndex.accountpage);
             } else {
                 lblErrLogin.Content = "Please enter the right credentials.";

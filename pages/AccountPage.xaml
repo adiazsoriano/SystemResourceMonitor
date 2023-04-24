@@ -9,6 +9,7 @@
       Title="AccountPage">
 
     <Grid>
-        
+        <Button x:Name="btnBack" Content="Start Page" HorizontalAlignment="Left" Margin="30,18,0,0" VerticalAlignment="Top" Width="85" Height="30" Click="btnBack_Click"/>
+        <Button x:Name="btnAccount" Content="Logout" HorizontalAlignment="Left" Margin="1150,18,0,0" VerticalAlignment="Top" Width="85" Height="30" Click="btnAccount_Click"/>
     </Grid>
 </Page>

@@ -28,8 +28,9 @@ namespace SystemResourceMonitor.pages {
 
         private void btnAccount_Click(object sender, RoutedEventArgs e) {
             if (UserConfig.UserData != null) {
-                if (NavigationService.CanGoBack) {
-                    NavigationService.GoBack();
+                if (NavigationService.CanGoForward) {
+                    NavigationService.GoForward();
+                    NavigationService.GoForward();
                 }
             } else {
                 if (NavigationService.CanGoForward) {

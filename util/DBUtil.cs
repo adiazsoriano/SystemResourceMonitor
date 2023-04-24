@@ -1,5 +1,6 @@
 ﻿using MySqlConnector;
 using System;
+using System.Diagnostics;
 
 namespace SystemResourceMonitor.util {
     static class DBUtil {
@@ -35,7 +36,8 @@ namespace SystemResourceMonitor.util {
                 } else {
                     return (command.ExecuteReader(), null);
                 }
-            } catch (Exception) {
+            } catch (Exception ex) {
+                Debug.WriteLine(ex.Message);
                 return (null, null);
             }
         }
