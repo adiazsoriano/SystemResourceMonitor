@@ -1,16 +1,17 @@
 ﻿using MySqlConnector;
 using System;
 using System.Collections.Generic;
+using System.Windows.Controls;
 using SystemResourceMonitor.util;
 
 namespace SystemResourceMonitor.util {
     class UserData {
-        private string Uid { get; set; }
-        private string UserName { get; set; }
-        private string Name { get; set; }
-        private bool IsAdmin { get; set; }
+        public string Uid { get; set; }
+        public string UserName { get; set; }
+        public string Name { get; set; }
+        public bool IsAdmin { get; set; }
 
-        private Dictionary<int, Dictionary<string, string?>> Uploads { get; set; }
+        public Dictionary<int, Dictionary<string, string?>> Uploads { get; set; }
 
         public UserData() {
             this.Uid = string.Empty;
@@ -48,10 +49,25 @@ namespace SystemResourceMonitor.util {
             fileinfo?.Close();
         }
 
+        public static List<UploadInfo> UserDataToUploadInfo(UserData data) {
+            List<UploadInfo> list = new();
+
+            return list;
+        }
+
     }
 
     static class UserConfig {
         public static UserData? UserData { get; set; } = null;
         public static bool UserLoggedin { get; set; } = false;
+    }
+
+    class UploadInfo {
+        public string? FileIndex { get; set; }
+        public string? FileName { get; set; }
+        public string? FileExt { get; set; }
+        public string? ComponentType { get; set; }
+
+        public string? FileId { get; set; }
     }
 }

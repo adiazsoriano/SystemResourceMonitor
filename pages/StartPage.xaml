@@ -11,6 +11,51 @@
     <Grid>
         <Button x:Name="btnAccount" Content="Login/Signup" HorizontalAlignment="Left" Margin="1150,18,0,0" VerticalAlignment="Top" Width="85" Height="30" Click="btnAccount_Click"/>
         <!-- <WpfPlot x:Name="plExample" HorizontalAlignment="Center" VerticalAlignment="Center" Height="450" Width="800"/> -->
+        <Grid x:Name="gdMain" Margin="80,80,80,80" Background="White">
+            <TabControl TabStripPlacement="Left">
+                <TabItem Header="CPU % Use">
+                    <Grid>
+                        <WpfPlot x:Name="pCPUPercent" Margin="60,10,60,110"></WpfPlot>
+                        <Button x:Name="btnBeginCPUPerc" Content="Begin Display" Margin="65,418,858,76" Click="btnBeginCPUPerc_Click"/>
+                        <Button x:Name="btnStopCPUPerc" Content="Stop Display" Margin="165,418,758,76" Click="btnStopCPUPerc_Click"/>
+                        <Label Content="Real Time Control" Margin="115,453,777,41"></Label>
+                        <ComboBox x:Name="cbIntCPUPerc" Margin="340,419,583,72" SelectionChanged="cbIntCPUPerc_SelectionChanged">
+                            <ComboBoxItem x:Name="cbiIntCPUPercDefault" Content="---" IsSelected="True"></ComboBoxItem>
+                            <ComboBoxItem x:Name="cbiIntCPUPerc1s" Content="1s"></ComboBoxItem>
+                            <ComboBoxItem x:Name="cbiIntCPUPerc5s" Content="5s"></ComboBoxItem>
+                            <ComboBoxItem x:Name="cbiIntCPUPerc10s" Content="10s"></ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox x:Name="cbDurCPUPerc" Margin="440,419,483,72" SelectionChanged="cbDurCPUPerc_SelectionChanged">
+                            <ComboBoxItem x:Name="cbiDurCPUPercDefault"  Content="---" IsSelected="True"></ComboBoxItem>
+                            <ComboBoxItem x:Name="cbiDurCPUPerc1m" Content="1 min"></ComboBoxItem>
+                            <ComboBoxItem x:Name="cbiDurCPUPerc5m" Content="5 min"></ComboBoxItem>
+                            <ComboBoxItem x:Name="cbiDurCPUPerc10m" Content="10 min"></ComboBoxItem>
+                        </ComboBox>
+                        <Button x:Name="btnUploadCPUPerc" Content="Account Upload" Margin="852,419,60,76"/>
+                        <Button x:Name="btnDownloadCPUPerc" Content="Download Data" Margin="749,419,171,76" Click="btnDownloadCPUPerc_Click"/>
+                        <Button x:Name="btnRecordCPUPerc" Content="Begin Record" Margin="540,419,383,76" Click="btnRecordCPUPerc_Click"/>
+                        <Label Content="Interval" Margin="357,453,600,41"/>
+                        <Label Content="Duration" Margin="457,453,488,41"/>
+                        <Label Content="Saving Configuration" Margin="791,448,86,41"/>
 
+                    </Grid>
+                </TabItem>
+                <TabItem Header="RAM Available">
+                    <Grid>
+                        <WpfPlot x:Name="pRAMAvail" Margin="60,10,60,110"></WpfPlot>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="RAM % Use">
+                    <Grid>
+                        <WpfPlot x:Name="pRAMPercent" Margin="60,10,60,110"></WpfPlot>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Ram Exact Use">
+                    <Grid>
+                        <WpfPlot x:Name="pRAMExact" Margin="60,10,60,110"></WpfPlot>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
     </Grid>
 </Page>

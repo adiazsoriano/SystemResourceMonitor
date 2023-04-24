@@ -9,7 +9,25 @@
       Title="AccountPage">
 
     <Grid>
-        <Button x:Name="btnBack" Content="Start Page" HorizontalAlignment="Left" Margin="30,18,0,0" VerticalAlignment="Top" Width="85" Height="30" Click="btnBack_Click"/>
-        <Button x:Name="btnAccount" Content="Logout" HorizontalAlignment="Left" Margin="1150,18,0,0" VerticalAlignment="Top" Width="85" Height="30" Click="btnAccount_Click"/>
+        <Button x:Name="btnStartPage" Content="Start Page" HorizontalAlignment="Left" Margin="30,18,0,0" VerticalAlignment="Top" Width="85" Height="30" Click="btnStartPage_Click"/>
+        <Button x:Name="btnLogout" Content="Logout" HorizontalAlignment="Left" Margin="1150,18,0,0" VerticalAlignment="Top" Width="85" Height="30" Click="btnLogout_Click"/>
+        <TextBlock x:Name="tbUserInfo" Margin="0,138,0,0" TextWrapping="Wrap" Text="Info." VerticalAlignment="Top" Height="156" Width="1120" HorizontalAlignment="Center" TextAlignment="Center"/>
+        <Grid  Margin="80,320,80,80">
+            <DataGrid x:Name="dgUploads" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="0.1*" Header="File Index" IsReadOnly="True" Binding="{Binding FileIndex}"></DataGridTextColumn>
+                    <DataGridTextColumn Width="0.5*" Header="File Name" IsReadOnly="True" Binding="{Binding FileName}"></DataGridTextColumn>
+                    <DataGridTextColumn Width="0.1*" Header="File Extension" IsReadOnly="True" Binding="{Binding FileExt}"></DataGridTextColumn>
+                    <DataGridTextColumn Width="0.2*"  Header="Component Type" IsReadOnly="True" Binding="{Binding ComponentType}"></DataGridTextColumn>
+                    <DataGridTemplateColumn Width="0.1*" Header="Download" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Download File" Click="RowButton_Click"></Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </Page>

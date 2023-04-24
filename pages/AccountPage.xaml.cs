@@ -1,5 +1,7 @@
 ﻿using System.Windows.Controls;
 using SystemResourceMonitor.util;
+using System.Windows;
+using System;
 
 namespace SystemResourceMonitor.pages {
     /// <summary>
@@ -9,21 +11,33 @@ namespace SystemResourceMonitor.pages {
         public AccountPage() {
             InitializeComponent();
             this.KeepAlive = true;
+            this.Loaded += AccountPage_Loaded;
         }
 
-        private void btnBack_Click(object sender, System.Windows.RoutedEventArgs e) {
-            if(NavigationService.CanGoBack) {
+        private void AccountPage_Loaded(object sender, RoutedEventArgs e) {
+            tbUserInfo.Text = string.Empty;
+            tbUserInfo.Text += "Welcome, " + UserConfig.UserData.Name + "\t\t\t\t";
+            tbUserInfo.Text += "Username: " + UserConfig.UserData.UserName + "\t\t\t\t";
+            tbUserInfo.Text += "Date: " + DateTime.Now.ToShortDateString();
+        }
+
+        private void btnStartPage_Click(object sender, RoutedEventArgs e) {
+            if (NavigationService.CanGoBack) {
                 NavigationService.GoBack();
                 NavigationService.GoBack();
             }
         }
 
-        private void btnAccount_Click(object sender, System.Windows.RoutedEventArgs e) {
+        private void btnLogout_Click(object sender, RoutedEventArgs e) {
             UserConfig.UserData = null;
             UserConfig.UserLoggedin = false;
-            if(NavigationService.CanGoBack) {
+            if (NavigationService.CanGoBack) {
                 NavigationService.GoBack();
             }
+        }
+
+        private void RowButton_Click(object sender, RoutedEventArgs e) {
+
         }
     }
 }
