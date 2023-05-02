@@ -22,7 +22,9 @@ namespace SystemResourceMonitor.util {
             return conn;
         }
 
-        public static (MySqlDataReader? result, int? affectedrows) ExecuteStatement(string statement, bool isNonQuery, params Tuple<string, object?>[] args) {
+        public static (MySqlDataReader? result, int? affectedrows) ExecuteStatement(string statement, 
+                                                                                    bool isNonQuery, 
+                                                                                    params Tuple<string, object?>[] args) {
             try {
                 using MySqlCommand command = new(statement, Connection);
 
@@ -37,7 +39,7 @@ namespace SystemResourceMonitor.util {
                     return (command.ExecuteReader(), null);
                 }
             } catch (Exception ex) {
-                Debug.WriteLine(ex.Message);
+                //Debug.WriteLine(ex.Message);
                 return (null, null);
             }
         }

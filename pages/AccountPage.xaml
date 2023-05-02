@@ -13,7 +13,7 @@
         <Button x:Name="btnLogout" Content="Logout" HorizontalAlignment="Left" Margin="1150,18,0,0" VerticalAlignment="Top" Width="85" Height="30" Click="btnLogout_Click"/>
         <TextBlock x:Name="tbUserInfo" Margin="0,138,0,0" TextWrapping="Wrap" Text="Info." VerticalAlignment="Top" Height="156" Width="1120" HorizontalAlignment="Center" TextAlignment="Center"/>
         <Grid  Margin="80,320,80,80">
-            <DataGrid x:Name="dgUploads" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" IsReadOnly="True">
+            <DataGrid x:Name="dgUploads" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" IsReadOnly="True" HeadersVisibility="Column">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="0.1*" Header="File Index" IsReadOnly="True" Binding="{Binding FileIndex}"></DataGridTextColumn>
                     <DataGridTextColumn Width="0.5*" Header="File Name" IsReadOnly="True" Binding="{Binding FileName}"></DataGridTextColumn>

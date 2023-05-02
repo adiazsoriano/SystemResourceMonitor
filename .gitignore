@@ -5,4 +5,4 @@ obj/
 bin/
 
 #config info
-config/
+config/config.txt

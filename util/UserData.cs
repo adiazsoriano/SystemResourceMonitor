@@ -1,6 +1,8 @@
 ﻿using MySqlConnector;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Controls;
 using SystemResourceMonitor.util;
 
@@ -52,6 +54,19 @@ namespace SystemResourceMonitor.util {
         public static List<UploadInfo> UserDataToUploadInfo(UserData data) {
             List<UploadInfo> list = new();
 
+            for(int i = 1; i < data.Uploads.Count+1; i++) {
+                UploadInfo uploadrecord = new() {
+                    FileIndex = i.ToString(),
+                    FileName = data.Uploads[i]["Filename"],
+                    FileExt = data.Uploads[i]["Fileext"],
+                    ComponentType = data.Uploads[i]["Component"],
+                    FileId = data.Uploads[i]["FID"]
+
+                };
+
+                list.Add(uploadrecord);
+            }
+
             return list;
         }
 
@@ -69,5 +84,24 @@ namespace SystemResourceMonitor.util {
         public string? ComponentType { get; set; }
 
         public string? FileId { get; set; }
+    }
+
+    static class UserAccountUtil {
+        private static readonly SHA256 hashtool = SHA256.Create();
+
+        public static string HashString(string s) {
+            byte[] passHash = hashtool.ComputeHash(Encoding.UTF8.GetBytes(s));
+            return String.Join("", BitConverter.ToString(passHash).Split('-'));
+        }
+
+        public static bool UserExist(string username) {
+            string query = "SELECT Username FROM Users WHERE Username=@user;";
+            var (result, _) = DBUtil.ExecuteStatement(query,
+                                                 false,
+                                                 new Tuple<string, object?>("@user", username));
+            bool doesUserExist = result != null && result.HasRows;
+            result?.Close();
+            return doesUserExist;
+        }
     }
 }

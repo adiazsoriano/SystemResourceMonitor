@@ -13,7 +13,6 @@ namespace SystemResourceMonitor.pages {
     /// Interaction logic for Account.xaml
     /// </summary>
     public partial class Account : Page {
-        private static readonly SHA256 hashtool = SHA256.Create();
         public Account() {
             InitializeComponent();
             this.KeepAlive = true;
@@ -26,22 +25,7 @@ namespace SystemResourceMonitor.pages {
             txtSignupPass.Password = string.Empty;
             txtSignupPassConf.Password = string.Empty;
             lblErrConf.Content = string.Empty;
-        }
-
-        private static bool UserExist(string username) {
-            string query = "SELECT Username FROM Users WHERE Username=@user;";
-            var (result, _) = DBUtil.ExecuteStatement(query,
-                                                 false,
-                                                 new Tuple<string, object?>("@user", username));
-            bool doesUserExist = result != null && result.HasRows;
-            result?.Close();
-            return doesUserExist;
-        }
-
-        private static string HashString(string s) {
-            byte[] passHash = hashtool.ComputeHash(Encoding.UTF8.GetBytes(s));
-            return String.Join("", BitConverter.ToString(passHash).Split('-'));
-        }
+        }      
 
         private void Account_Loaded(object sender, RoutedEventArgs e) {
             btnSignup.IsEnabled = false;
@@ -61,7 +45,7 @@ namespace SystemResourceMonitor.pages {
             var (result, _) = DBUtil.ExecuteStatement(query,
                                                      false,
                                                      new("@user", txtLoginUser.Text.ToString()),
-                                                     new("@pass", HashString(txtLoginPass.Password.ToString()))
+                                                     new("@pass", UserAccountUtil.HashString(txtLoginPass.Password.ToString()))
                                                      );
 
             if (result != null && result.HasRows) {
@@ -87,14 +71,14 @@ namespace SystemResourceMonitor.pages {
         }
 
         private void btnSignup_Click(object sender, RoutedEventArgs e) {
-            if (!UserExist(txtSignupUser.Text.ToString())) {
+            if (!UserAccountUtil.UserExist(txtSignupUser.Text.ToString())) {
                 string insertion = "INSERT INTO Users(Username,Name,Password) VALUES(@user,@name,@pass);";
 
                 var (_, affectedrows) = DBUtil.ExecuteStatement(insertion,
                                                                 true,
                                                                 new("@user", txtSignupUser.Text.ToString()),
                                                                 new("@name", txtSignupName.Text.ToString()),
-                                                                new("@pass", HashString(txtSignupPass.Password.ToString())));
+                                                                new("@pass", UserAccountUtil.HashString(txtSignupPass.Password.ToString())));
 
                 if (affectedrows != null && affectedrows > 0) {
                     lblMessSignup.Foreground = Brushes.Green;

@@ -2,6 +2,10 @@
 using SystemResourceMonitor.util;
 using System.Windows;
 using System;
+using System.Data;
+using SystemResourceMonitor.util;
+using System.Diagnostics;
+using Microsoft.Win32;
 
 namespace SystemResourceMonitor.pages {
     /// <summary>
@@ -10,7 +14,6 @@ namespace SystemResourceMonitor.pages {
     public partial class AccountPage : Page {
         public AccountPage() {
             InitializeComponent();
-            this.KeepAlive = true;
             this.Loaded += AccountPage_Loaded;
         }
 
@@ -19,6 +22,9 @@ namespace SystemResourceMonitor.pages {
             tbUserInfo.Text += "Welcome, " + UserConfig.UserData.Name + "\t\t\t\t";
             tbUserInfo.Text += "Username: " + UserConfig.UserData.UserName + "\t\t\t\t";
             tbUserInfo.Text += "Date: " + DateTime.Now.ToShortDateString();
+
+            dgUploads.DataContext = UserData.UserDataToUploadInfo(UserConfig.UserData);
+            dgUploads.Items.Refresh();
         }
 
         private void btnStartPage_Click(object sender, RoutedEventArgs e) {
@@ -37,7 +43,18 @@ namespace SystemResourceMonitor.pages {
         }
 
         private void RowButton_Click(object sender, RoutedEventArgs e) {
+            var row = ((Button)e.Source).DataContext as UploadInfo;
 
+            SaveFileDialog s = new SaveFileDialog();
+            s.FileName = "UtilData";
+            s.DefaultExt = ".csv";
+            s.Filter = "Comma Seperated Values (.csv)|*.csv";
+
+            var successful = s.ShowDialog();
+
+            if (successful == true) {
+               FileUtil.HandleDBDownload(row.FileId, s.FileName);
+            }
         }
     }
 }

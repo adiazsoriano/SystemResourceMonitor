@@ -3,13 +3,13 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using SystemResourceMonitor.util;
 using System.Windows.Threading;
-using SystemPerformance;
 using ScottPlot;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using Microsoft.Win32;
+using System;
 
 namespace SystemResourceMonitor.pages {
     /// <summary>
@@ -21,7 +21,7 @@ namespace SystemResourceMonitor.pages {
         private int interval;
         private int limit;
         private DispatcherTimer timer;
-        private PerformanceTracker performanceTracker;
+        private SystemPerformance SysPerf;
 
         private WpfPlot? currentPlot;
         private int graphIndex;
@@ -43,13 +43,14 @@ namespace SystemResourceMonitor.pages {
             timer.Tick += Timer_Tick;
             timer.Interval = new System.TimeSpan(0, 0, 1);
 
-            performanceTracker = new();
+            SysPerf = new();
 
             currentPlot = null;
             graphIndex = -1;
 
             XAxis = new();
             YAxis = new();
+
         }
 
         private void clearGraphInfo() {
@@ -127,8 +128,9 @@ namespace SystemResourceMonitor.pages {
             float data;
             switch(graphIndex) {
                 case 0:
-                    data = performanceTracker.Current_CPU_Usage;
+                    data = SysPerf.SysCounters["CpuUtil"].NextValue();
                     break;
+
                 //future cases can reflect future configurations
                 default:
                     data = 0;
@@ -236,8 +238,24 @@ namespace SystemResourceMonitor.pages {
             var successful  = s.ShowDialog();
 
             if(successful == true) {
-                FileUtil.HandleUtilDownload(this.XAxis,this.YAxis,s.FileName, "CPU_%_Usage");
-                Debug.WriteLine(s.FileName);
+                FileUtil.HandleUtilDownload(this.XAxis,this.YAxis,s.FileName, "seconds,CPU_%_Usage");
+            }
+        }
+
+        private void btnUploadCPUPerc_Click(object sender, RoutedEventArgs e) {
+            string filename = DateTime.Now.Ticks.ToString();
+            string insert = "INSERT INTO Uploads(UID,Component,Filename,Fileext,File) VALUES(@UID,@Component,@Filename,@Fileext,@File);";
+
+            var (_, affected) = DBUtil.ExecuteStatement(insert,
+                                                        true,
+                                                        new("@UID",UserConfig.UserData.Uid),
+                                                        new("@Component", "CPU"),
+                                                        new("@Filename", filename),
+                                                        new("@Fileext", "csv"),
+                                                        new("@File",FileUtil.GraphDataToCSVString(this.XAxis,this.YAxis, "seconds,CPU_%_Usage")));
+
+            if(affected != null && affected > 0) {
+                btnUploadCPUPerc.IsEnabled = false;
             }
         }
     }

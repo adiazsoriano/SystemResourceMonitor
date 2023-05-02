@@ -14,6 +14,7 @@
         <Grid x:Name="gdMain" Margin="80,80,80,80" Background="White">
             <TabControl TabStripPlacement="Left">
                 <TabItem Header="CPU % Use">
+                    <!-- TODO: Consider Refactoring all with user control -->
                     <Grid>
                         <WpfPlot x:Name="pCPUPercent" Margin="60,10,60,110"></WpfPlot>
                         <Button x:Name="btnBeginCPUPerc" Content="Begin Display" Margin="65,418,858,76" Click="btnBeginCPUPerc_Click"/>
@@ -31,7 +32,7 @@
                             <ComboBoxItem x:Name="cbiDurCPUPerc5m" Content="5 min"></ComboBoxItem>
                             <ComboBoxItem x:Name="cbiDurCPUPerc10m" Content="10 min"></ComboBoxItem>
                         </ComboBox>
-                        <Button x:Name="btnUploadCPUPerc" Content="Account Upload" Margin="852,419,60,76"/>
+                        <Button x:Name="btnUploadCPUPerc" Content="Account Upload" Margin="852,419,60,76" Click="btnUploadCPUPerc_Click"/>
                         <Button x:Name="btnDownloadCPUPerc" Content="Download Data" Margin="749,419,171,76" Click="btnDownloadCPUPerc_Click"/>
                         <Button x:Name="btnRecordCPUPerc" Content="Begin Record" Margin="540,419,383,76" Click="btnRecordCPUPerc_Click"/>
                         <Label Content="Interval" Margin="357,453,600,41"/>
