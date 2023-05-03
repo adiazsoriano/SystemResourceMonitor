@@ -7,6 +7,10 @@ using System.Windows.Controls;
 using SystemResourceMonitor.util;
 
 namespace SystemResourceMonitor.util {
+
+    /// <summary>
+    /// Serves as the global layout for data in the application
+    /// </summary>
     class UserData {
         public string Uid { get; set; }
         public string UserName { get; set; }
@@ -23,6 +27,12 @@ namespace SystemResourceMonitor.util {
             this.Uploads = new();
         }
 
+        /// <summary>
+        /// Loads the given user data into the object
+        /// </summary>
+        /// <param name="uid">UID of the user</param>
+        /// <param name="username">username of the user</param>
+        /// <param name="name">name of the user</param>
         public void LoadData(string uid, string username, string name) {
             string uploadquery = "SELECT FID, Component, Filename, Fileext FROM Uploads WHERE UID=@uid";
             var (fileinfo, _) = DBUtil.ExecuteStatement(uploadquery,
@@ -51,6 +61,11 @@ namespace SystemResourceMonitor.util {
             fileinfo?.Close();
         }
 
+        /// <summary>
+        /// Turns userdata into a list format for a DataGrid data context
+        /// </summary>
+        /// <param name="data">data of the user</param>
+        /// <returns>A list of rows regarding user uploads</returns>
         public static List<UploadInfo> UserDataToUploadInfo(UserData data) {
             List<UploadInfo> list = new();
 
@@ -72,11 +87,17 @@ namespace SystemResourceMonitor.util {
 
     }
 
+    /// <summary>
+    /// Serves as the information needed for the application to function with DB
+    /// </summary>
     static class UserConfig {
         public static UserData? UserData { get; set; } = null;
         public static bool UserLoggedin { get; set; } = false;
     }
 
+    /// <summary>
+    /// Serves as the data context for the account page
+    /// </summary>
     class UploadInfo {
         public string? FileIndex { get; set; }
         public string? FileName { get; set; }
@@ -86,14 +107,27 @@ namespace SystemResourceMonitor.util {
         public string? FileId { get; set; }
     }
 
+    /// <summary>
+    /// Serves as the utility class of functions for user information processing
+    /// </summary>
     static class UserAccountUtil {
         private static readonly SHA256 hashtool = SHA256.Create();
 
+        /// <summary>
+        /// Hashes a string with SHA256
+        /// </summary>
+        /// <param name="s">string to be hashed</param>
+        /// <returns>hashed version of the string as hexadecimal digits</returns>
         public static string HashString(string s) {
             byte[] passHash = hashtool.ComputeHash(Encoding.UTF8.GetBytes(s));
             return String.Join("", BitConverter.ToString(passHash).Split('-'));
         }
 
+        /// <summary>
+        /// Checks with the DB to see if a user exist
+        /// </summary>
+        /// <param name="username">username to be checked</param>
+        /// <returns>true if the user exist</returns>
         public static bool UserExist(string username) {
             string query = "SELECT Username FROM Users WHERE Username=@user;";
             var (result, _) = DBUtil.ExecuteStatement(query,

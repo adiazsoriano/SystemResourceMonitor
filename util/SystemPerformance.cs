@@ -6,6 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SystemResourceMonitor.util {
+
+    /// <summary>
+    /// Serves as a hub for performance counters
+    /// </summary>
     class SystemPerformance {
         public Dictionary<string, PerformanceCounter> SysCounters { get; }
 

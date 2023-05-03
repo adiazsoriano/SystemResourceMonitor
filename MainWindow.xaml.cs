@@ -9,6 +9,9 @@ namespace SystemResourceMonitor {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
+
+            //initial database connection
+            //may be asynchronous in the future.
             string? auth = FileUtil.GetFileContent(Path.Combine(Path.GetFullPath(@"..\..\..\"), @"config\config.txt"))?[0];
             DBUtil.Connection = DBUtil.Connect(auth);
         }

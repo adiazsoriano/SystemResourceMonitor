@@ -19,6 +19,9 @@ namespace SystemResourceMonitor.pages {
             this.Loaded += Account_Loaded;
         }
 
+        /// <summary>
+        /// Clears up signup fields, local to this page.
+        /// </summary>
         private void ClearSignupFields() {
             txtSignupUser.Text = string.Empty;
             txtSignupName.Text = string.Empty;
@@ -27,6 +30,11 @@ namespace SystemResourceMonitor.pages {
             lblErrConf.Content = string.Empty;
         }      
 
+        /// <summary>
+        /// Event handler for once the page is loaded
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Account_Loaded(object sender, RoutedEventArgs e) {
             btnSignup.IsEnabled = false;
             lblErrLogin.Content = string.Empty;
@@ -34,12 +42,24 @@ namespace SystemResourceMonitor.pages {
             lblErrConf.Content = string.Empty;
         }
 
+
+        /// <summary>
+        /// Event handler for back button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnBack_Click(object sender, RoutedEventArgs e) {
             if (NavigationService.CanGoBack) {
                 NavigationService.GoBack();
             }
         }
 
+
+        /// <summary>
+        /// Event handler for login button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLogin_Click(object sender, RoutedEventArgs e) {
             string query = "SELECT UID, Username, Name FROM Users WHERE Username=@user AND Password=@pass;";
             var (result, _) = DBUtil.ExecuteStatement(query,
@@ -48,6 +68,7 @@ namespace SystemResourceMonitor.pages {
                                                      new("@pass", UserAccountUtil.HashString(txtLoginPass.Password.ToString()))
                                                      );
 
+            //make sure the credentials are good
             if (result != null && result.HasRows) {
                 UserConfig.UserData = new UserData();
 
@@ -70,6 +91,12 @@ namespace SystemResourceMonitor.pages {
             result?.Close();
         }
 
+
+        /// <summary>
+        /// Event handler for signup button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSignup_Click(object sender, RoutedEventArgs e) {
             if (!UserAccountUtil.UserExist(txtSignupUser.Text.ToString())) {
                 string insertion = "INSERT INTO Users(Username,Name,Password) VALUES(@user,@name,@pass);";
@@ -101,6 +128,12 @@ namespace SystemResourceMonitor.pages {
             }
         }
 
+
+        /// <summary>
+        /// Event handler for signup password textfield change
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtSignupPass_PasswordChanged(object sender, RoutedEventArgs e) {
             if (txtSignupPassConf.Password.Equals(string.Empty) ||
                 !txtSignupPass.Password.Equals(txtSignupPassConf.Password)) {
@@ -112,6 +145,12 @@ namespace SystemResourceMonitor.pages {
             }
         }
 
+
+        /// <summary>
+        /// Event handler for signup password confirm textfield change
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtSignupPassConf_PasswordChanged(object sender, RoutedEventArgs e) {
             if (txtSignupPass.Password.Equals(string.Empty) ||
                 !txtSignupPassConf.Password.Equals(txtSignupPass.Password)) {

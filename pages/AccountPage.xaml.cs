@@ -17,6 +17,11 @@ namespace SystemResourceMonitor.pages {
             this.Loaded += AccountPage_Loaded;
         }
 
+        /// <summary>
+        /// Event handler for page loading
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AccountPage_Loaded(object sender, RoutedEventArgs e) {
             tbUserInfo.Text = string.Empty;
             tbUserInfo.Text += "Welcome, " + UserConfig.UserData.Name + "\t\t\t\t";
@@ -27,6 +32,11 @@ namespace SystemResourceMonitor.pages {
             dgUploads.Items.Refresh();
         }
 
+        /// <summary>
+        /// Event handler for start page button (goes back)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnStartPage_Click(object sender, RoutedEventArgs e) {
             if (NavigationService.CanGoBack) {
                 NavigationService.GoBack();
@@ -34,6 +44,11 @@ namespace SystemResourceMonitor.pages {
             }
         }
 
+        /// <summary>
+        /// Event handler for logging out
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLogout_Click(object sender, RoutedEventArgs e) {
             UserConfig.UserData = null;
             UserConfig.UserLoggedin = false;
@@ -42,6 +57,11 @@ namespace SystemResourceMonitor.pages {
             }
         }
 
+        /// <summary>
+        /// Event handler for a row button (generic)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RowButton_Click(object sender, RoutedEventArgs e) {
             var row = ((Button)e.Source).DataContext as UploadInfo;
 

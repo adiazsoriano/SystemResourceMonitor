@@ -10,6 +10,8 @@ using System.Drawing;
 using System.Linq;
 using Microsoft.Win32;
 using System;
+using System.Security.Cryptography;
+using System.Xml.Linq;
 
 namespace SystemResourceMonitor.pages {
     /// <summary>
@@ -53,6 +55,9 @@ namespace SystemResourceMonitor.pages {
 
         }
 
+        /// <summary>
+        /// Clears information on the graph
+        /// </summary>
         private void clearGraphInfo() {
             XAxis.Clear();
             YAxis.Clear();
@@ -60,6 +65,11 @@ namespace SystemResourceMonitor.pages {
             currentPlot?.Refresh();
         }
 
+        /// <summary>
+        /// Handles the start of the utility tracker
+        /// </summary>
+        /// <param name="graphIndex">Indicates the tab index</param>
+        /// <param name="plot">Indicates the plot to be altered</param>
         private void handleStartUtilTracker(int graphIndex, WpfPlot plot) {
             this.graphIndex = graphIndex;
             this.currentPlot = plot;
@@ -67,10 +77,16 @@ namespace SystemResourceMonitor.pages {
             timer.Start();
         }
 
+        /// <summary>
+        /// Handles the stoppage of a utility tracker
+        /// </summary>
         private void handleStopUtilTracker() {
             timer.Stop();
         }
 
+        /// <summary>
+        /// Updates the graph according to the state of the program
+        /// </summary>
         private void updateGraph() {
             if (currentPlot != null) {
                 currentPlot.Plot.AddScatter(XAxis.ToArray(), YAxis.ToArray(), Color.Blue);
@@ -79,6 +95,11 @@ namespace SystemResourceMonitor.pages {
             }
         }
 
+        /// <summary>
+        /// Event handler for the page loading
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StartPage_Loaded(object sender, RoutedEventArgs e) {
 
             if(timer.IsEnabled) {
@@ -104,8 +125,15 @@ namespace SystemResourceMonitor.pages {
             pCPUPercent.Plot.YLabel("% Value");
             pCPUPercent.Plot.XLabel("Time in Seconds");
             pCPUPercent.Refresh();
+
+            //more to be added...
         }
 
+        /// <summary>
+        /// Event handler for the tick of a timer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Timer_Tick(object? sender, System.EventArgs e) {
             timeelapsed++;
 
@@ -144,6 +172,11 @@ namespace SystemResourceMonitor.pages {
             }
         }
 
+        /// <summary>
+        /// Event handler for the account button (goes forward)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAccount_Click(object sender, RoutedEventArgs e) {
             if (UserConfig.UserData != null) {
                 if (NavigationService.CanGoForward) {
@@ -159,6 +192,11 @@ namespace SystemResourceMonitor.pages {
             }
         }
 
+        /// <summary>
+        /// Event handler for the CPU util begin button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnBeginCPUPerc_Click(object sender, RoutedEventArgs e) {
             btnBeginCPUPerc.IsEnabled = false;
             btnStopCPUPerc.IsEnabled = true;
@@ -169,6 +207,11 @@ namespace SystemResourceMonitor.pages {
             handleStartUtilTracker(0, pCPUPercent);
         }
 
+        /// <summary>
+        /// Event handler for the CPU util stop button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnStopCPUPerc_Click(object sender, RoutedEventArgs e) {
             btnBeginCPUPerc.IsEnabled = true;
             btnStopCPUPerc.IsEnabled = false;
@@ -176,7 +219,11 @@ namespace SystemResourceMonitor.pages {
             handleStopUtilTracker();
         }
 
-
+        /// <summary>
+        /// Event handler for recording the CPU util button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnRecordCPUPerc_Click(object sender, RoutedEventArgs e) {
             if(timer.IsEnabled) {
                 timer.Stop();
@@ -208,6 +255,11 @@ namespace SystemResourceMonitor.pages {
             
         }
 
+        /// <summary>
+        /// Event handler for the CPU interval combobox select
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cbIntCPUPerc_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if(btnRecordCPUPerc != null) {
                 if (!cbiIntCPUPercDefault.IsSelected && !cbiDurCPUPercDefault.IsSelected) {
@@ -219,6 +271,11 @@ namespace SystemResourceMonitor.pages {
             
         }
 
+        /// <summary>
+        /// Event handler for the CPU duration combobox select
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cbDurCPUPerc_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (btnRecordCPUPerc != null) {
                 if (!cbiIntCPUPercDefault.IsSelected && !cbiDurCPUPercDefault.IsSelected) {
@@ -229,6 +286,11 @@ namespace SystemResourceMonitor.pages {
             }
         }
 
+        /// <summary>
+        /// Event handler for the CPU download button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDownloadCPUPerc_Click(object sender, RoutedEventArgs e) {
             SaveFileDialog s = new SaveFileDialog();
             s.FileName = "CPUUtilData";
@@ -242,6 +304,11 @@ namespace SystemResourceMonitor.pages {
             }
         }
 
+        /// <summary>
+        /// Event handler for the CPU account upload button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnUploadCPUPerc_Click(object sender, RoutedEventArgs e) {
             string filename = DateTime.Now.Ticks.ToString();
             string insert = "INSERT INTO Uploads(UID,Component,Filename,Fileext,File) VALUES(@UID,@Component,@Filename,@Fileext,@File);";
@@ -256,6 +323,14 @@ namespace SystemResourceMonitor.pages {
 
             if(affected != null && affected > 0) {
                 btnUploadCPUPerc.IsEnabled = false;
+
+                string uid = UserConfig.UserData.Uid;
+                string username = UserConfig.UserData.UserName;
+                string name = UserConfig.UserData.Name;
+
+                UserConfig.UserData = null;
+                UserConfig.UserData = new();
+                UserConfig.UserData.LoadData(uid, username, name);
             }
         }
     }
